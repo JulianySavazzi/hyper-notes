@@ -1,0 +1,23 @@
+services:
+  db:
+    image: mysql:latest
+    environment:
+      DB_USERNAME: root
+      DB_PASSWORD: secret
+      DB_DATABASE: hyperf
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_ALLOW_EMPTY_PASSWORD:
+      MYSQL_RANDOM_ROOT_PASSWORD:
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - hyperf-skeleton
+    ports:
+      - "3306:3306"
+
+volumes:
+  db_data:
+
+networks:
+  hyperf-skeleton:
+    driver: bridge
