@@ -61,4 +61,15 @@ This will start the cli-server on port `9501`, and bind it to all network interf
 - Take a look at `config/routes.php` and `app/Controller/IndexController.php` to see an example of a HTTP entrypoint.
 
 **Remember:** you can always replace the contents of this README.md file to something that fits your project description.
+
 # hyper-notes
+
+Application to users create, read, edit, and delete notes.
+
+### Data model
+- User: name, email, password
+- Notes: content, header
+
+A user can make and read many notes, but one note has one user.
+
+### Alias hyperf: `php ./hyperf`
