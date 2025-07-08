@@ -14,7 +14,4 @@ use Hyperf\HttpServer\Router\Router;
 Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index');
 
 Router::addGroup('api/', function (Router $router) {
-
-
-
 });
