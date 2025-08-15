@@ -12,7 +12,16 @@ class UserController
 {
     public function index(UserRequest $request, ResponseInterface $response)
     {
-        return $response->json('Hello Hyperf!');
+        try {
+            return $response->json('Hello Hyperf!');
+        } catch (\Hyperf\Validation\ValidationException $e) {
+            return $response->json([
+                'message' => 'The given data was invalid.',
+                'errors' => $e->validator->errors()->toArray()
+            ])->withStatus(422);
+        } catch (Exception $e) {
+            return $response->json(['message' => $e->getMessage()])->withStatus(400);
+        }
     }
 
     public function show(UserRequest $request, int $id, ResponseInterface $response)
@@ -22,12 +31,16 @@ class UserController
 
     public function store(UserRequest $request, ResponseInterface $response)
     {
-        $data = $request->validated();
-
         try {
-            return $response->json($data);
+            $data = $request->validated();
+            return $response->json($data)->withStatus(201);
+        } catch (\Hyperf\Validation\ValidationException $e) {
+            return $response->json([
+                'message' => 'The given data was invalid.',
+                'errors' => $e->validator->errors()->toArray()
+            ])->withStatus(422);
         } catch (Exception $e) {
-            return $response->json($e->getMessage());
+            return $response->json(['message' => $e->getMessage()])->withStatus(400);
         }
     }
 

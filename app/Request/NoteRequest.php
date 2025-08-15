@@ -22,8 +22,18 @@ class NoteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'string|optional|max:255',
+            'title' => 'string|max:255',
             'content' => 'string|required',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'title.string' => 'The title needs to be a text.',
+            'title.max' => 'The title may not be greater than 255 characters.',
+            'content.string' => 'The content needs to be a text.',
+            'content.required' => 'The content is required.',
         ];
     }
 }

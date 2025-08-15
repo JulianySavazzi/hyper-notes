@@ -18,9 +18,17 @@ Router::addGroup('/api', function () {
 
     Router::addGroup('/user', function (){
         Router::get('/', ['App\Controller\UserController', 'index']);
-        Router::get('/{id}', 'App\Controller\UserController@show');
-        Router::post('/', 'App\Controller\UserController@store');
-        Router::put('/{id}', 'App\Controller\UserController@update');
-        Router::delete('/{id}', 'App\Controller\UserController@delete');
+        Router::get('/{id}', ['App\Controller\UserController', 'show']);
+        Router::post('/', ['App\Controller\UserController', 'store']);
+        Router::put('/{id}', ['App\Controller\UserController', 'update']);
+        Router::delete('/{id}', ['App\Controller\UserController', 'delete']);
+    });
+
+    Router::addGroup('/notes', function (){
+        Router::get('/', ['App\Controller\NoteController', 'index']);
+        Router::get('/{id}', ['App\Controller\NoteController', 'show']);
+        Router::post('/', ['App\Controller\NoteController', 'store']);
+        Router::put('/{id}', ['App\Controller\NoteController', 'update']);
+        Router::delete('/{id}', ['App\Controller\NoteController', 'delete']);
     });
 });

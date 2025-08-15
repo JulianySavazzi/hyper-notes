@@ -12,22 +12,45 @@ class NoteController
 {
     public function index(NoteRequest $request, ResponseInterface $response)
     {
-        return $response->raw('Hello Hyperf!');
+        try {
+            return $response->raw('Hello Hyperf!');
+        } catch (\Hyperf\Validation\ValidationException $e) {
+            return $response->json([
+                'message' => 'The given data was invalid.',
+                'errors' => $e->validator->errors()->toArray()
+            ])->withStatus(422);
+        } catch (Exception $e) {
+            return $response->json(['message' => $e->getMessage()])->withStatus(400);
+        }
     }
 
     public function show(NoteRequest $request, int $id, ResponseInterface $response)
     {
-
+        try {
+            // Implementation goes here
+            return $response->json(['id' => $id]);
+        } catch (\Hyperf\Validation\ValidationException $e) {
+            return $response->json([
+                'message' => 'The given data was invalid.',
+                'errors' => $e->validator->errors()->toArray()
+            ])->withStatus(422);
+        } catch (Exception $e) {
+            return $response->json(['message' => $e->getMessage()])->withStatus(400);
+        }
     }
 
     public function store(NoteRequest $request, ResponseInterface $response)
     {
-        $data = $request->validated();
-
         try {
+            $data = $request->validated();
             return $response->json($data);
+        } catch (\Hyperf\Validation\ValidationException $e) {
+            return $response->json([
+                'message' => 'The given data was invalid.',
+                'errors' => $e->validator->errors()->toArray()
+            ])->withStatus(422);
         } catch (Exception $e) {
-            return $response->json($e->getMessage());
+            return $response->json(['message' => $e->getMessage()])->withStatus(400);
         }
     }
 
