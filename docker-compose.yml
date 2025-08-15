@@ -1,15 +1,14 @@
 services:
   db:
-    image: mysql:latest
+    image: mysql:9.3
+    restart: always
     environment:
-      DB_USERNAME: root
-      DB_PASSWORD: secret
-      DB_DATABASE: hyperf
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_ALLOW_EMPTY_PASSWORD:
-      MYSQL_RANDOM_ROOT_PASSWORD:
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'secret'
+      MYSQL_ROOT_PASSWORD: 'secret'
+      MYSQL_DATABASE: 'hyperf'
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - 'db_data:/var/lib/mysql'
     networks:
       - hyperf-skeleton
     ports:
@@ -17,6 +16,7 @@ services:
 
 volumes:
   db_data:
+    driver: local
 
 networks:
   hyperf-skeleton:
