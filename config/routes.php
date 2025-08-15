@@ -13,5 +13,14 @@ use Hyperf\HttpServer\Router\Router;
 
 Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index');
 
-Router::addGroup('api/', function (Router $router) {
+Router::addGroup('/api', function () {
+    Router::get('/', 'App\Controller\IndexController@index');
+
+    Router::addGroup('/user', function (){
+        Router::get('/', ['App\Controller\UserController', 'index']);
+        Router::get('/{id}', 'App\Controller\UserController@show');
+        Router::post('/', 'App\Controller\UserController@store');
+        Router::put('/{id}', 'App\Controller\UserController@update');
+        Router::delete('/{id}', 'App\Controller\UserController@delete');
+    });
 });
