@@ -72,4 +72,5 @@ Application to users create, read, edit, and delete notes.
 
 A user can make and read many notes, but one note has one user.
 
-### Alias hyperf: `php ./hyperf`
+### Alias hyperf: 
+`php hyperf`
